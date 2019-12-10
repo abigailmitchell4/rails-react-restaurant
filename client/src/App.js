@@ -27,27 +27,16 @@ componentDidMount() {
       })
   }
 
-  // updateMenu = (id) => {
-  //   axios.put(`/api/menus/${id}`)
-  //     .then( res => {
-  //       const menus = this.state.menus.map( m => {
-  //       if (m.id === id)
-  //         return res.data;
-  //       return m;
-  //     });
-  //     this.setState({ menus, });
-  //   })
-  // }
-
-  editMenu = (id, name, time) => {
-    axios.put(`/api/menus/${id}`, {name}, {time})
+  editMenu = (id, menu) => {
+    axios.put(`/api/menus/${id}`, {menu})
       .then( res => {
+        // const { menus } = this.state
         const menus = this.state.menus.map( m => {
         if (m.id === id)
-          return m
-        return res.data;
+          return res.data
+        return m
       });
-      this.setState({ menus: [...this.state.menus, res.data], });
+      this.setState({ menus });
     })
   }
 
