@@ -5,18 +5,18 @@ class MenuForm extends React.Component {
   state = { name: "", time: "" };
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value, });
+    this.setState({ [e.target.name]: e.target.value, })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.props.id) {
-      this.props.editMenu(this.props.id, this.props.name, this.props.time)
+      this.props.editMenu(this.props.id, this.state.name, this.state.time)
       this.props.toggleEdit()
     }
     else {
-      this.props.addMenu(this.state.name);
-      this.setState({ name: "", time: ""});
+      this.props.addMenu(this.state.name)
+      this.setState({ name: "", time: ""})
     }
   }
 

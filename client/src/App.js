@@ -6,7 +6,9 @@ import { Container, } from "semantic-ui-react";
 import './App.css';
 
 class App extends React.Component {
-  state = { menus: [], }
+  state = { 
+    menus: [],
+  }
 
 componentDidMount() {
   axios.get("/api/menus")
@@ -18,9 +20,8 @@ componentDidMount() {
     })
   }
 
-  addMenu = (name) => {
-    debugger
-    axios.post('/api/menus', { name })
+  addMenu = (name, time) => {
+    axios.post('/api/menus', { name }, {time})
       .then( res => {
         this.setState({ menus: [...this.state.menus, res.data], });
       })
@@ -39,17 +40,15 @@ componentDidMount() {
   // }
 
   editMenu = (id, name, time) => {
-
     axios.put(`/api/menus/${id}`, {name}, {time})
       .then( res => {
         const menus = this.state.menus.map( m => {
         if (m.id === id)
-          return id;
+          return m
         return res.data;
       });
       this.setState({ menus: [...this.state.menus, res.data], });
     })
-    debugger
   }
 
   removeMenu = (id) => {
@@ -71,11 +70,13 @@ componentDidMount() {
         <MenuForm addMenu={this.addMenu} />
         <br />
         <br />
-        <MenuList 
-          menus={this.state.menus}
-          removeMenu={this.removeMenu}
-          editMenu={this.editMenu}
+        <Container>
+          <MenuList 
+            menus={this.state.menus}
+            removeMenu={this.removeMenu}
+            editMenu={this.editMenu}
           />
+        </Container>
       </Container>
     );
   }
